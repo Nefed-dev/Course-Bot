@@ -1,5 +1,6 @@
 from asyncio import sleep
-
+import os
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Command
 from aiogram.types import CallbackQuery, Message
@@ -8,7 +9,9 @@ from keyboard import Keyboard
 import content
 import keyboard
 
-BOT_TOKEN = '1688397636:AAGIEvytcDzCWP8lXdZphtLdxdgIkNNQj8U'
+load_dotenv()
+
+BOT_TOKEN = str(os.getenv("BOT_TOKEN"))
 ADMIN_ID = [1782255380, ]
 
 bot = Bot(BOT_TOKEN)
@@ -54,7 +57,6 @@ async def admin_send_all(message: types.Message):
     user_id = message.from_user.id
     if user_id in ADMIN_ID:
         print(db.all_id_users())
-
         for id in db.all_id_users():
             try:
                 print(id[0])
@@ -127,8 +129,7 @@ async def send_homework(query: CallbackQuery):
                                     f'\n\nПрактический урок: {lesson["practice"]}'
                                     f'\n\n{check_list(tariff, lesson)}'
                                     f'Твоя домашка: {lesson["homework"]}',
-                               reply_markup=Keyboard().lessons(lessons_dict=content.exercise[exc],module=mod))
-
+                               reply_markup=Keyboard().lessons(lessons_dict=content.exercise[exc], module=mod))
 
 
 async def on_startup(dp):
