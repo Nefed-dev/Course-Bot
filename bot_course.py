@@ -1,34 +1,34 @@
 from asyncio import sleep
-import os
-from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Command
 from aiogram.types import CallbackQuery, Message
 from database import Database
 from keyboard import Keyboard
+
+from data import config
+
 import content
 import keyboard
 
-load_dotenv()
 
-BOT_TOKEN = str(os.getenv("BOT_TOKEN"))
+BOT_TOKEN = config.BOT_TOKEN
 ADMIN_ID = [1782255380, ]
 
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher(bot)
 db = Database(path_to_db='course_students.db')
 
-
+# TODO Переместить
 async def set_default_commands(dp):
     await dp.bot.set_my_commands([types.BotCommand("start", 'Запустить бота'), types.BotCommand("help", 'Памагити')])
 
-
+# TODO Переместить
 @dp.message_handler(Command('help'))
 async def help_message(message: Message):
     await message.answer(text='Привет, если возникли какие-то проблемы с ботом или видеоуроками, '
                               'то напиши мне в телеграм @nfd_admin')
 
-
+# TODO Переместить
 @dp.message_handler(Command('start'))
 async def start_message(message: Message):
     await message.answer(text=f'{content.MESSAGES["start"]}',
@@ -36,6 +36,7 @@ async def start_message(message: Message):
     print(db.all_phone())
 
 
+# TODO Переделать
 @dp.message_handler(content_types=types.ContentTypes.CONTACT)
 async def check_phone(message: Message):
     user_id = message.from_user.id
@@ -51,7 +52,7 @@ async def check_phone(message: Message):
             await message.answer(text=content.MESSAGES['module_selection'],
                                  reply_markup=Keyboard().all_modules(content.MODULE_NAME))
 
-
+# TODO Переместить
 @dp.message_handler(Command('sendall', prefixes='!'))
 async def admin_send_all(message: types.Message):
     user_id = message.from_user.id
@@ -65,7 +66,7 @@ async def admin_send_all(message: types.Message):
             except Exception as exc:
                 print(exc)
 
-
+# TODO Переместить
 @dp.message_handler(Command('refresh', prefixes='!'))
 async def refresh(message: types.Message):
     user_id = message.from_user.id

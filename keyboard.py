@@ -3,7 +3,7 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardBut
 import content
 
 
-# ! TODO ДОБАВИТM BACK_TO КО ВСЕМ КЛАВИАТУРАМ, ГДЕ ЭТО НАДО
+# ! TODO Лишний код. Пока оставлю для примера
 
 class Keyboard:
     button_show_all_modules = InlineKeyboardButton(text=content.SERVICE_BUTTON['show_all_modules'],
