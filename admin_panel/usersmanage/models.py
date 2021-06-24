@@ -27,7 +27,6 @@ class User(TimeBaseModel):
 
 
 class Item(TimeBaseModel):
-    # TODO Добавить поля: Домашняя работа, видео, шпаргалка, чек-лист
 
     class Meta:
         verbose_name = 'Урок'
@@ -45,7 +44,6 @@ class Item(TimeBaseModel):
     video_link = models.CharField(verbose_name='Ссылка на видеоурок', max_length=100)
     cheatsheet_link = models.CharField(verbose_name='Ссылка на шпаргалку', max_length=100)
     homework_link = models.CharField(verbose_name='Ссылка на домашнюю работу', max_length=100)
-    # TODO подумать о переносе чек-листа с гугл-диска на отправку файла в чатбота
     check_list_link = models.CharField(verbose_name='Ссылка на чек-лист', max_length=100)
 
     def __str__(self):
